@@ -3,118 +3,153 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Zenith Studios — ARCOM: Vanguard</title>
-  <meta name="description" content="Zenith Studios — ARCOM: Vanguard | Open-world tactical roleplay & combat. Development in progress." />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="icon" href="data:,">
+  <title>r_bananz — Roblox Developer & Scripter</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body class="dark">
-  <header class="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="index.html">Zenith Studios</a>
-      <nav class="main-nav" id="nav">
-        <a href="development.html">Development</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="announcements.html">Announcements</a>
-      </nav>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+<body>
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="terminal">
+      <div class="loading-header">[ Terminal: r_bananz.dev ]</div>
+      <p>> Initializing environment<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
+      <p>> Loading assets</p>
+      <p>> Connecting to <span class="accent">Roblox API</span></p>
+      <p>> Starting portfolio interface...</p>
+      <p class="ready">> <span class="accent">Ready.</span> Press Enter to continue.</p>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-inner">
-        <div class="hero-content">
-          <span class="badge">Available: Development</span>
-          <h1>ARCOM: Vanguard</h1>
-          <p class="lead">Transforming tactical roleplay into a living battlefield — open world, deep roleplay, and competitive progression.</p>
-          <div class="hero-cta">
-            <a href="development.html" class="btn">Development</a>
-            <a href="roadmap.html" class="btn btn-ghost">Roadmap</a>
+  <!-- Page Content -->
+  <div id="content" class="hidden">
+    <header class="site-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="avatar"></div>
+          <div class="brand-text">
+            <div class="name">r_bananz</div>
+            <div class="sub">Roblox Developer · Scripter · Discord Bot Creator</div>
           </div>
-          <ul class="features">
-            <li>Open World Map</li>
-            <li>Ranks based on time & skill</li>
-            <li>No Pay-to-Win — cosmetic-only monetization</li>
-          </ul>
         </div>
+        <button class="nav-toggle" id="navToggle">☰</button>
+        <nav class="nav" id="nav">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact" class="cta">Contact</a>
+        </nav>
+      </div>
+    </header>
 
-        <div class="hero-visual">
-          <!-- Animated purple blob / 3D-feel gradient -->
-          <svg class="blob" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
-            <defs>
-              <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#7c3aed"/>
-                <stop offset="50%" stop-color="#9b5cf6"/>
-                <stop offset="100%" stop-color="#5b21b6"/>
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="18" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            <g filter="url(#glow)">
-              <path id="blobpath" fill="url(#g1)" d="M426,332Q418,414,342,452Q266,490,191,446Q116,402,86,324Q56,246,106,180Q156,114,234,106Q312,98,372,142Q432,186,442,258Q452,330,426,332Z" />
-            </g>
-          </svg>
-          <div class="visual-overlay">
-            <div class="glass-card">
-              <h4>ARCOM: Vanguard</h4>
-              <p>Open world tactical roleplay — development in progress.</p>
+    <main>
+      <section class="hero">
+        <div class="container hero-inner">
+          <h1>Hello — I’m <span class="accent">r_bananz</span></h1>
+          <p class="lead">I build immersive Roblox systems, advanced admin tools, and powerful Discord bots — all with clean Lua and Node.js. 3+ years of experience creating reliable, scalable tools for games and communities.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn">See Projects</a>
+            <a href="#contact" class="btn btn-ghost">Contact</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="container">
+          <h2>About</h2>
+          <p class="muted">Hey, I’m <span class="accent">r_bananz</span> — a Roblox developer with a focus on scripting, clean systems, and smooth user experiences. I specialize in modular, performance-optimized code for games and Discord bot systems. Currently improving my UI design skills to make every project both powerful and beautiful.</p>
+        </div>
+      </section>
+
+      <section id="skills" class="section dark">
+        <div class="container">
+          <h2>Skills</h2>
+          <div class="cards">
+            <div class="card">
+              <h3>Roblox Development</h3>
+              <p>Advanced systems, optimization, gameplay logic, and morphing frameworks.</p>
+            </div>
+            <div class="card">
+              <h3>Discord Bots</h3>
+              <p>Custom verification, stores, ticket systems, admin tools, and moderation bots.</p>
+            </div>
+            <div class="card">
+              <h3>UI / UX (Learning)</h3>
+              <p>Modern interfaces, draggable layouts, and immersive in-game UIs.</p>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section class="quick-info container">
-      <div class="card">
-        <h3>Two Bases • Balanced Faction Warfare</h3>
-        <p>Launch includes two primary bases that act as objectives and coordination hubs for German & Russian factions.</p>
-      </div>
-      <div class="card">
-        <h3>Anti-Cheat & Optimization</h3>
-        <p>Custom anti-cheat and performance optimizations are being implemented for fair and smooth gameplay.</p>
-      </div>
-      <div class="card">
-        <h3>Vehicles, Teams & UI</h3>
-        <p>Vehicles and division systems are on the roadmap. UI is custom-built for immersion and accessibility.</p>
-      </div>
-    </section>
+      <section id="projects" class="section">
+        <div class="container">
+          <h2>Projects</h2>
+          <div class="projects-grid">
+            <article class="project">
+              <div class="project-meta">
+                <div class="proj-title">Advanced Menu System + Morphing</div>
+                <div class="proj-sub">Dynamic menu system with morph animations, modular setup, and data persistence.</div>
+              </div>
+            </article>
 
-<section class="cta container">
-  <div class="cta-inner">
-    <h3>Follow the Development</h3>
-    <p>Check Roadmap for upcoming features and Announcements for release notes and news.</p>
-    <div>
-      <a href="roadmap.html" class="btn">See Roadmap</a>
-      <a href="announcements.html" class="btn btn-ghost">View Announcements</a>
-      <a href="https://discord.gg/TqjKZgYnth" class="btn" target="_blank">Join Discord</a>
-    </div>
-    <div class="credits">
-      <span>r_bananz - Owner</span>
-      <span>haddsak - Head Development</span>
-    </div>
+            <article class="project">
+              <div class="project-meta">
+                <div class="proj-title">Admin System</div>
+                <div class="proj-sub">Roleplay-friendly admin console with Discord webhook logging and permissions.</div>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="project-meta">
+                <div class="proj-title">Discord Bots (Store Bot)</div>
+                <div class="proj-sub">Multi-server bot with item store, verification, and persistent user systems.</div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section dark">
+        <div class="container contact-inner">
+          <div>
+            <h2>Contact</h2>
+            <p class="muted">Want to collaborate or check my projects? Feel free to reach out on Discord.</p>
+          </div>
+          <div class="contact-actions">
+            <a class="btn" href="https://discord.gg/TqjKZgYnth" target="_blank">Join Discord</a>
+            <a class="btn btn-ghost" href="mailto:bananabeanz49@gmail.com
+">Email</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <small>© 2025 r_bananz — Roblox Developer & Bot Creator</small>
+      </div>
+    </footer>
   </div>
-</section>
 
-  </main>
+  <script>
+    // Simulated bootup + fade
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      const content = document.getElementById("content");
+      document.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+          loader.classList.add("fade-out");
+          setTimeout(() => {
+            loader.style.display = "none";
+            content.classList.remove("hidden");
+          }, 800);
+        }
+      });
+    });
 
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <div>© <strong>Zenith Studios</strong> — ARCOM: Vanguard</div>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="development.html">Development</a>
-        <a href="roadmap.html">Roadmap</a>
-        <a href="announcements.html">Announcements</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+    // Mobile nav toggle
+    const nav = document.getElementById('nav');
+    const toggle = document.getElementById('navToggle');
+    toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+  </script>
 </body>
 </html>
