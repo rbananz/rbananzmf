@@ -1,69 +1,82 @@
-const clientId = "1401327058717638667";
-const redirectUri = "https://www.rbananz.xyz/";
-const userSection = document.getElementById("userSection");
-const loginBtn = document.getElementById("loginBtn");
+import express from "express";
+import fetch from "node-fetch";
+import session from "express-session";
+import dotenv from "dotenv";
+dotenv.config();
 
-// Save and load from localStorage
-async function fetchUser(token) {
-  const res = await fetch("https://discord.com/api/users/@me", {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  if (!res.ok) throw new Error("Failed to fetch user");
-  const user = await res.json();
-  localStorage.setItem("discord_user", JSON.stringify(user));
-  return user;
-}
+const app = express();
+app.use(express.json());
+app.use(express.static("."));
+app.use(session({ secret: "shadowspire", resave: false, saveUninitialized: true }));
 
-function showUser(user) {
-  loginBtn.style.display = "none";
-  const img = document.createElement("img");
-  img.src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`;
-  img.className = "w-10 h-10 rounded-full border-2 border-purple-400";
-  const name = document.createElement("span");
-  name.textContent = user.username;
-  userSection.appendChild(img);
-  userSection.appendChild(name);
-}
+// Discord OAuth2
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+const REDIRECT_URI = process.env.REDIRECT_URI;
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const CHANNEL_ID = process.env.CHANNEL_ID;
 
-// On page load
-window.onload = async () => {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get("code");
-  const savedUser = localStorage.getItem("discord_user");
-
-  if (savedUser) {
-    showUser(JSON.parse(savedUser));
-    return;
-  }
-
-  if (code) {
-    try {
-      const body = new URLSearchParams({
-        client_id: clientId,
-        client_secret: "YOUR_CLIENT_SECRET_HERE",
-        grant_type: "authorization_code",
-        code,
-        redirect_uri: redirectUri,
-      });
-
-      const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body,
-      });
-      const tokenData = await tokenRes.json();
-
-      if (tokenData.access_token) {
-        const user = await fetchUser(tokenData.access_token);
-        showUser(user);
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
-
-// Login redirect
-loginBtn.addEventListener("click", () => {
-  window.location.href = `https://discord.com/oauth2/authorize?client_id=${clientId}&response_type=code&redirect_uri=${encodeURIComponent(redirectUri)}&scope=identify+email`;
+app.get("/login", (req, res) => {
+  const redirect = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
+  res.redirect(redirect);
 });
+
+app.get("/callback", async (req, res) => {
+  const code = req.query.code;
+  if (!code) return res.redirect("/");
+
+  const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      grant_type: "authorization_code",
+      code,
+      redirect_uri: REDIRECT_URI,
+      scope: "identify"
+    })
+  });
+  const tokenData = await tokenRes.json();
+
+  const userRes = await fetch("https://discord.com/api/users/@me", {
+    headers: { Authorization: `Bearer ${tokenData.access_token}` }
+  });
+  const user = await userRes.json();
+
+  req.session.user = {
+    username: user.username,
+    id: user.id,
+    avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
+  };
+
+  res.redirect("/");
+});
+
+app.get("/user", (req, res) => {
+  res.json(req.session.user || {});
+});
+
+app.post("/contact", async (req, res) => {
+  const user = req.session.user;
+  if (!user) return res.status(401).json({ error: "Not logged in" });
+
+  const { message } = req.body;
+
+  await fetch(`https://discord.com/api/v10/channels/${CHANNEL_ID}/messages`, {
+    method: "POST",
+    headers: { "Authorization": `Bot ${BOT_TOKEN}`, "Content-Type": "application/json" },
+    body: JSON.stringify({
+      embeds: [{
+        title: "💼 New Commission Request",
+        color: 5763719,
+        description: `**From:** ${user.username}\n**ID:** ${user.id}\n**Message:**\n${message}`,
+        thumbnail: { url: user.avatar }
+      }]
+    })
+  });
+
+  res.json({ success: true });
+});
+
+app.listen(3000, () => console.log("🌐 Portfolio running on http://localhost:3000"));
