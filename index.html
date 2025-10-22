@@ -1,160 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>R_bananz | Developer Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <title>R_bananz Portfolio</title>
   <style>
-    * { box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at bottom, #210022, #0a0010);
+      background: linear-gradient(135deg, #1a1a2e, #16213e);
       color: white;
-      overflow-x: hidden;
-      min-height: 100vh;
-      position: relative;
+      font-family: Poppins, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding: 0;
     }
-
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 25px 60px;
+      padding: 20px 60px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
     }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 600;
-      color: #ff00c8;
-      letter-spacing: 1px;
-    }
-
-    .discord-btn {
-      background: transparent;
-      border: 2px solid #ff00c8;
-      color: #ff00c8;
-      border-radius: 30px;
+    .login-btn {
+      background: #5865F2;
+      border: none;
       padding: 10px 25px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
-      font-weight: 600;
     }
-
-    .discord-btn:hover {
-      background: #ff00c8;
-      color: white;
-    }
-
+    .login-btn:hover { background: #4752c4; }
     .pfp {
       width: 45px;
       height: 45px;
       border-radius: 50%;
-      border: 2px solid #ff00c8;
-      box-shadow: 0 0 10px #ff00c8;
-    }
-
-    main {
-      text-align: center;
-      padding: 120px 20px;
-    }
-
-    h1 {
-      font-size: 64px;
-      font-weight: 700;
-      color: #fff;
-      text-shadow: 0 0 20px #ff00c8;
-    }
-
-    h1 span {
-      color: #ff00c8;
-    }
-
-    p {
-      max-width: 650px;
-      margin: 20px auto 50px;
-      color: #ccc;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-
-    section {
-      background: rgba(255, 255, 255, 0.03);
-      border-radius: 20px;
-      margin: 60px auto;
-      padding: 50px;
-      max-width: 900px;
-      box-shadow: 0 0 30px rgba(255, 0, 200, 0.1);
-      text-align: center;
-    }
-
-    section h2 {
-      color: #ff00c8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #888;
-      font-size: 14px;
-    }
-
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,0,200,0.2) 0%, transparent 70%);
-      animation: float 8s infinite ease-in-out;
-    }
-
-    .circle:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 10%; }
-    .circle:nth-child(2) { width: 500px; height: 500px; bottom: 10%; right: 10%; animation-delay: 3s; }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); opacity: 0.6; }
-      50% { transform: translateY(-30px); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="circle"></div>
-  <div class="circle"></div>
-
   <header>
-    <div class="logo">R_bananz</div>
-    <div id="loginArea">
-      <button class="discord-btn" id="loginButton">Login with Discord</button>
+    <h2>R_bananz</h2>
+    <div id="authArea">
+      <button class="login-btn" onclick="login()">Login with Discord</button>
     </div>
   </header>
 
-  <main>
-    <h1>Hey, I'm <span>R_bananz</span></h1>
-    <p>Discord bot maker & Roblox developer.<br>I create modern systems, sleek UIs, and powerful roleplay tools.</p>
-  </main>
-
-  <section>
-    <h2>🚀 Projects</h2>
-    <p>• Custom Discord bots with advanced systems<br>
-       • Roblox admin, radio & RP tools<br>
-       • Clean and responsive UI design for both games and web</p>
-  </section>
-
-  <footer>© 2025 R_bananz — Made with 💜 and creativity</footer>
+  <h1>Welcome to My Portfolio</h1>
+  <p>I’m a Discord bot maker and Roblox developer.</p>
 
   <script>
-    const DISCORD_AUTH_URL = "https://discord.com/oauth2/authorize?client_id=1401327058717638667&response_type=code&redirect_uri=https%3A%2F%2Fwww.rbananz.xyz%2F&scope=identify+email";
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
 
-    document.getElementById("loginButton").addEventListener("click", () => {
-      window.location.href = DISCORD_AUTH_URL;
-    });
+    async function login() {
+      window.location.href = "https://discord.com/oauth2/authorize?client_id=1401327058717638667&response_type=code&redirect_uri=https%3A%2F%2Fwww.rbananz.xyz%2F&scope=identify+email";
+    }
 
-    // Check if Discord returned a code (optional visual)
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("code")) {
-      // Just for now, pretend user is logged in (since no backend yet)
-      document.getElementById("loginArea").innerHTML = `
-        <img src="https://cdn.discordapp.com/embed/avatars/0.png" class="pfp" title="Logged in via Discord">
-      `;
+    if (code) {
+      fetch(`/auth?code=${code}`)
+        .then(res => res.json())
+        .then(user => {
+          if (user.avatar) {
+            document.getElementById("authArea").innerHTML =
+              `<img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" class="pfp" title="${user.username}">`;
+          } else {
+            document.getElementById("authArea").innerHTML = `<p>${user.username}</p>`;
+          }
+        });
     }
   </script>
 </body>
