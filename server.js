@@ -1,29 +1,22 @@
 import express from "express";
 import fetch from "node-fetch";
-import session from "express-session";
 import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(express.static("."));
-app.use(session({ secret: "shadowspire", resave: false, saveUninitialized: true }));
 
-// Discord OAuth2
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
-const BOT_TOKEN = process.env.BOT_TOKEN;
-const CHANNEL_ID = process.env.CHANNEL_ID;
+const CLIENT_ID = "1401327058717638667";
+const CLIENT_SECRET = process.env.CLIENT_SECRET; // keep in env (not on GitHub)
+const REDIRECT_URI = "https://www.rbananz.xyz/";
+const WEBHOOK_URL = process.env.WEBHOOK_URL;
 
-app.get("/login", (req, res) => {
-  const redirect = `https://discord.com/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=code&scope=identify`;
-  res.redirect(redirect);
-});
-
-app.get("/callback", async (req, res) => {
-  const code = req.query.code;
-  if (!code) return res.redirect("/");
+// Exchange code for user data
+app.post("/exchange", async (req, res) => {
+  const params = new URLSearchParams(req.body);
+  const code = params.get("code");
+  if (!code) return res.json({ error: "No code" });
 
   const tokenRes = await fetch("https://discord.com/api/oauth2/token", {
     method: "POST",
@@ -34,44 +27,41 @@ app.get("/callback", async (req, res) => {
       grant_type: "authorization_code",
       code,
       redirect_uri: REDIRECT_URI,
-      scope: "identify"
+      scope: "identify email"
     })
   });
+
   const tokenData = await tokenRes.json();
+  if (!tokenData.access_token) return res.json({ error: "Failed to get token" });
 
   const userRes = await fetch("https://discord.com/api/users/@me", {
     headers: { Authorization: `Bearer ${tokenData.access_token}` }
   });
   const user = await userRes.json();
 
-  req.session.user = {
-    username: user.username,
-    id: user.id,
+  res.json({
+    username: user.username + "#" + user.discriminator,
     avatar: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`
-  };
-
-  res.redirect("/");
+  });
 });
 
-app.get("/user", (req, res) => {
-  res.json(req.session.user || {});
-});
+// Commission webhook sender
+app.post("/commission", async (req, res) => {
+  const { user, message } = req.body;
+  if (!message) return res.status(400).json({ error: "No message" });
 
-app.post("/contact", async (req, res) => {
-  const user = req.session.user;
-  if (!user) return res.status(401).json({ error: "Not logged in" });
-
-  const { message } = req.body;
-
-  await fetch(`https://discord.com/api/v10/channels/${CHANNEL_ID}/messages`, {
+  await fetch(WEBHOOK_URL, {
     method: "POST",
-    headers: { "Authorization": `Bot ${BOT_TOKEN}`, "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       embeds: [{
-        title: "💼 New Commission Request",
-        color: 5763719,
-        description: `**From:** ${user.username}\n**ID:** ${user.id}\n**Message:**\n${message}`,
-        thumbnail: { url: user.avatar }
+        title: "🎨 New Commission Request",
+        color: 7506394,
+        fields: [
+          { name: "From", value: user, inline: false },
+          { name: "Message", value: message, inline: false }
+        ],
+        timestamp: new Date()
       }]
     })
   });
@@ -79,4 +69,4 @@ app.post("/contact", async (req, res) => {
   res.json({ success: true });
 });
 
-app.listen(3000, () => console.log("🌐 Portfolio running on http://localhost:3000"));
+app.listen(3000, () => console.log("🚀 Running on port 3000"));
