@@ -1,73 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>R_bananz Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R_bananz — Portfolio</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script defer src="script.js"></script>
   <style>
     body {
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
+      background: radial-gradient(circle at top left, #1e0034, #000);
       color: white;
-      font-family: Poppins, sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
+      font-family: 'Poppins', sans-serif;
     }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 60px;
-      background: rgba(0, 0, 0, 0.3);
-      backdrop-filter: blur(10px);
-    }
-    .login-btn {
-      background: #5865F2;
-      border: none;
-      padding: 10px 25px;
-      border-radius: 8px;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .login-btn:hover { background: #4752c4; }
-    .pfp {
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
     }
   </style>
 </head>
-<body>
-  <header>
-    <h2>R_bananz</h2>
-    <div id="authArea">
-      <button class="login-btn" onclick="login()">Login with Discord</button>
+<body class="flex flex-col items-center justify-center min-h-screen">
+  <header class="w-full flex justify-between items-center p-6 fixed top-0 bg-black bg-opacity-50 backdrop-blur-md">
+    <h1 class="text-2xl font-bold text-purple-400">R_bananz</h1>
+    <div id="userSection" class="flex items-center space-x-4">
+      <button id="loginBtn" class="px-5 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-semibold transition">
+        Login with Discord
+      </button>
     </div>
   </header>
 
-  <h1>Welcome to My Portfolio</h1>
-  <p>I’m a Discord bot maker and Roblox developer.</p>
+  <main class="flex flex-col items-center mt-32 text-center space-y-6">
+    <div class="glass p-8 max-w-lg">
+      <h2 class="text-4xl font-bold mb-4">👋 Hey, I'm <span class="text-purple-400">R_bananz</span></h2>
+      <p class="text-gray-300 mb-6">
+        I’m a Discord bot developer and Roblox scripter who loves building creative tools and immersive experiences.
+      </p>
+      <a href="https://discord.com/oauth2/authorize?client_id=1401327058717638667&response_type=code&redirect_uri=https%3A%2F%2Fwww.rbananz.xyz%2F&scope=identify+email"
+         class="bg-purple-600 px-5 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
+         Check out my Discord Work
+      </a>
+    </div>
 
-  <script>
-    const params = new URLSearchParams(window.location.search);
-    const code = params.get('code');
-
-    async function login() {
-      window.location.href = "https://discord.com/oauth2/authorize?client_id=1401327058717638667&response_type=code&redirect_uri=https%3A%2F%2Fwww.rbananz.xyz%2F&scope=identify+email";
-    }
-
-    if (code) {
-      fetch(`/auth?code=${code}`)
-        .then(res => res.json())
-        .then(user => {
-          if (user.avatar) {
-            document.getElementById("authArea").innerHTML =
-              `<img src="https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png" class="pfp" title="${user.username}">`;
-          } else {
-            document.getElementById("authArea").innerHTML = `<p>${user.username}</p>`;
-          }
-        });
-    }
-  </script>
+    <div class="text-gray-400 text-sm">
+      © 2025 R_bananz. Made with 💜
+    </div>
+  </main>
 </body>
 </html>
