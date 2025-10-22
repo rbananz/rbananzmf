@@ -1,155 +1,161 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>r_bananz — Roblox Developer & Scripter</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R_bananz | Developer Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at bottom, #210022, #0a0010);
+      color: white;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 25px 60px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 600;
+      color: #ff00c8;
+      letter-spacing: 1px;
+    }
+
+    .discord-btn {
+      background: transparent;
+      border: 2px solid #ff00c8;
+      color: #ff00c8;
+      border-radius: 30px;
+      padding: 10px 25px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 600;
+    }
+
+    .discord-btn:hover {
+      background: #ff00c8;
+      color: white;
+    }
+
+    .pfp {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 2px solid #ff00c8;
+      box-shadow: 0 0 10px #ff00c8;
+    }
+
+    main {
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    h1 {
+      font-size: 64px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 20px #ff00c8;
+    }
+
+    h1 span {
+      color: #ff00c8;
+    }
+
+    p {
+      max-width: 650px;
+      margin: 20px auto 50px;
+      color: #ccc;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    section {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      margin: 60px auto;
+      padding: 50px;
+      max-width: 900px;
+      box-shadow: 0 0 30px rgba(255, 0, 200, 0.1);
+      text-align: center;
+    }
+
+    section h2 {
+      color: #ff00c8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,0,200,0.2) 0%, transparent 70%);
+      animation: float 8s infinite ease-in-out;
+    }
+
+    .circle:nth-child(1) { width: 400px; height: 400px; top: 10%; left: 10%; }
+    .circle:nth-child(2) { width: 500px; height: 500px; bottom: 10%; right: 10%; animation-delay: 3s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); opacity: 0.6; }
+      50% { transform: translateY(-30px); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loader">
-    <div class="terminal">
-      <div class="loading-header">[ Terminal: r_bananz.dev ]</div>
-      <p>> Initializing environment<span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></p>
-      <p>> Loading assets</p>
-      <p>> Connecting to <span class="accent">Roblox API</span></p>
-      <p>> Starting portfolio interface...</p>
-      <p class="ready">> <span class="accent">Ready.</span> Press Enter to continue.</p>
+  <div class="circle"></div>
+  <div class="circle"></div>
+
+  <header>
+    <div class="logo">R_bananz</div>
+    <div id="loginArea">
+      <button class="discord-btn" id="loginButton">Login with Discord</button>
     </div>
-  </div>
+  </header>
 
-  <!-- Page Content -->
-  <div id="content" class="hidden">
-    <header class="site-header">
-      <div class="container header-inner">
-        <div class="brand">
-          <div class="avatar"></div>
-          <div class="brand-text">
-            <div class="name">r_bananz</div>
-            <div class="sub">Roblox Developer · Scripter · Discord Bot Creator</div>
-          </div>
-        </div>
-        <button class="nav-toggle" id="navToggle">☰</button>
-        <nav class="nav" id="nav">
-          <a href="#about">About</a>
-          <a href="#skills">Skills</a>
-          <a href="#projects">Projects</a>
-          <a href="#contact" class="cta">Contact</a>
-        </nav>
-      </div>
-    </header>
+  <main>
+    <h1>Hey, I'm <span>R_bananz</span></h1>
+    <p>Discord bot maker & Roblox developer.<br>I create modern systems, sleek UIs, and powerful roleplay tools.</p>
+  </main>
 
-    <main>
-      <section class="hero">
-        <div class="container hero-inner">
-          <h1>Hello — I’m <span class="accent">r_bananz</span></h1>
-          <p class="lead">I build immersive Roblox systems, advanced admin tools, and powerful Discord bots — all with clean Lua and Node.js. 3+ years of experience creating reliable, scalable tools for games and communities.</p>
-          <div class="hero-actions">
-            <a href="#projects" class="btn">See Projects</a>
-            <a href="#contact" class="btn btn-ghost">Contact</a>
-          </div>
-        </div>
-      </section>
+  <section>
+    <h2>🚀 Projects</h2>
+    <p>• Custom Discord bots with advanced systems<br>
+       • Roblox admin, radio & RP tools<br>
+       • Clean and responsive UI design for both games and web</p>
+  </section>
 
-      <section id="about" class="section">
-        <div class="container">
-          <h2>About</h2>
-          <p class="muted">Hey, I’m <span class="accent">r_bananz</span> — a Roblox developer with a focus on scripting, clean systems, and smooth user experiences. I specialize in modular, performance-optimized code for games and Discord bot systems. Currently improving my UI design skills to make every project both powerful and beautiful.</p>
-        </div>
-      </section>
-
-      <section id="skills" class="section dark">
-        <div class="container">
-          <h2>Skills</h2>
-          <div class="cards">
-            <div class="card">
-              <h3>Roblox Development</h3>
-              <p>Advanced systems, optimization, gameplay logic, and morphing frameworks.</p>
-            </div>
-            <div class="card">
-              <h3>Discord Bots</h3>
-              <p>Custom verification, stores, ticket systems, admin tools, and moderation bots.</p>
-            </div>
-            <div class="card">
-              <h3>UI / UX (Learning)</h3>
-              <p>Modern interfaces, draggable layouts, and immersive in-game UIs.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="projects" class="section">
-        <div class="container">
-          <h2>Projects</h2>
-          <div class="projects-grid">
-            <article class="project">
-              <div class="project-meta">
-                <div class="proj-title">Advanced Menu System + Morphing</div>
-                <div class="proj-sub">Dynamic menu system with morph animations, modular setup, and data persistence.</div>
-              </div>
-            </article>
-
-            <article class="project">
-              <div class="project-meta">
-                <div class="proj-title">Admin System</div>
-                <div class="proj-sub">Roleplay-friendly admin console with Discord webhook logging and permissions.</div>
-              </div>
-            </article>
-
-            <article class="project">
-              <div class="project-meta">
-                <div class="proj-title">Discord Bots (Store Bot)</div>
-                <div class="proj-sub">Multi-server bot with item store, verification, and persistent user systems.</div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="section dark">
-        <div class="container contact-inner">
-          <div>
-            <h2>Contact</h2>
-            <p class="muted">Want to collaborate or check my projects? Feel free to reach out on Discord.</p>
-          </div>
-          <div class="contact-actions">
-            <a class="btn" href="https://discord.gg/TqjKZgYnth" target="_blank">Join Discord</a>
-            <a class="btn btn-ghost" href="mailto:bananabeanz49@gmail.com
-">Email</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container">
-        <small>© 2025 r_bananz — Roblox Developer & Bot Creator</small>
-      </div>
-    </footer>
-  </div>
+  <footer>© 2025 R_bananz — Made with 💜 and creativity</footer>
 
   <script>
-    // Simulated bootup + fade
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      const content = document.getElementById("content");
-      document.addEventListener("keydown", e => {
-        if (e.key === "Enter") {
-          loader.classList.add("fade-out");
-          setTimeout(() => {
-            loader.style.display = "none";
-            content.classList.remove("hidden");
-          }, 800);
-        }
-      });
+    const DISCORD_AUTH_URL = "https://discord.com/oauth2/authorize?client_id=1401327058717638667&response_type=code&redirect_uri=https%3A%2F%2Fwww.rbananz.xyz%2F&scope=identify+email";
+
+    document.getElementById("loginButton").addEventListener("click", () => {
+      window.location.href = DISCORD_AUTH_URL;
     });
 
-    // Mobile nav toggle
-    const nav = document.getElementById('nav');
-    const toggle = document.getElementById('navToggle');
-    toggle.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+    // Check if Discord returned a code (optional visual)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("code")) {
+      // Just for now, pretend user is logged in (since no backend yet)
+      document.getElementById("loginArea").innerHTML = `
+        <img src="https://cdn.discordapp.com/embed/avatars/0.png" class="pfp" title="Logged in via Discord">
+      `;
+    }
   </script>
 </body>
 </html>
